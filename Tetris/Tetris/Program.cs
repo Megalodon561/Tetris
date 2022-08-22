@@ -1,13 +1,12 @@
 ﻿using Tetris;
 Console.SetWindowSize(30, 40);
 Console.SetBufferSize(30, 40);
-Squares s = new Squares(0, 0, '*');
-s.Draw();
-
-
-
-
-
+Stick s2 = new Stick(3,3,'*');
+s2.Draw();
+Thread.Sleep(500);
+s2.Hide();
+s2.Move(Direction.RIGHT);
+s2.Draw();
 
 
 
