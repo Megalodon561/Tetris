@@ -1,33 +1,31 @@
 ﻿using Tetris;
 Console.SetWindowSize(30, 40);
 Console.SetBufferSize(30, 40);
-Stick s2 = new Stick(3,3,'*');
-s2.Draw();
-Thread.Sleep(500);
-s2.Hide();
-s2.Rotate();
-s2.Draw();
-Thread.Sleep(500);
-s2.Hide();
-s2.Rotate();
-s2.Draw();
+FigureGenerator generator = new FigureGenerator(20, 0, '*');
+Figure currentFigure = generator.GetNewFigure();
+while (true)
+{
+    if (Console.KeyAvailable)
+    {
+        var key = Console.ReadKey();
+        HandleKey(currentFigure, key);
 
+    }
+}
 
+void HandleKey(Figure currentFigure, ConsoleKeyInfo key)
+{
+    switch (key.Key)
+    {
+        case ConsoleKey.LeftArrow:
+            currentFigure.Move(Direction.LEFT);
+            break;
+        case ConsoleKey.RightArrow:
+            currentFigure.Move(Direction.RIGHT);
+            break;
+        case ConsoleKey.DownArrow:
+            currentFigure.Move(Direction.DOWN);
+            break;
+    }
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Console.ReadLine();
