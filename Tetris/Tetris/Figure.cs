@@ -8,7 +8,8 @@ namespace Tetris
 {
     abstract public class Figure
     {
-        protected Point[] points = new Point[4];
+        const int LENGTH = 4;
+        protected Point[] points = new Point[LENGTH];
         public void Draw()
 
         {
@@ -17,7 +18,14 @@ namespace Tetris
                 p.Draw();
             }
         }
-        public void Move(Direction dir)
+        public void Move(Point[] PList, Direction dir)
+        {
+            foreach(Point p in PList)
+            {
+                p.Move(dir);
+            }
+        }
+/*      public void Move(Direction dir)
         {
             Hide();
             foreach (Point p in points)
@@ -25,7 +33,38 @@ namespace Tetris
                 p.Move(dir);
             }
             Draw();
+        }*/
+
+        internal void TryMove(Direction dir)
+        {
+            Hide();
+            var clone = Clone();
+            Move(clone, dir);
+            if (VerifyPosition(clone))
+                points = clone;
+            Draw();
         }
+
+        private bool VerifyPosition(Point[] PList)
+        {
+            foreach(Point p in PList)
+            {
+                if(p.x<0 || p.x>=30 || p.y>=40 || p.y<0)
+                    return false;
+            }
+            return true;
+        }
+
+        private Point[] Clone()
+        {
+            var NewPoints = new Point[LENGTH];
+            for (int i = 0; i < LENGTH; i++)
+            {
+                NewPoints[i] = new Point(points[i]);
+            }
+            return NewPoints;
+        }
+
         public void Hide()
         {
             foreach(Point p in points)
