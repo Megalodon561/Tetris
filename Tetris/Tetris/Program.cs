@@ -1,7 +1,7 @@
 ﻿using Tetris;
-Console.SetWindowSize(30, 40);
-Console.SetBufferSize(30, 40);
-FigureGenerator generator = new FigureGenerator(28, 0, '*');
+Console.SetWindowSize(Field.Width, Field.Height);
+Console.SetBufferSize(Field.Width, Field.Height);
+FigureGenerator generator = new FigureGenerator(20, 0, '*');
 Figure currentFigure = generator.GetNewFigure();
 while (true)
 {
@@ -25,6 +25,9 @@ void HandleKey(Figure currentFigure, ConsoleKeyInfo key)
             break;
         case ConsoleKey.DownArrow:
             currentFigure.TryMove(Direction.DOWN);
+            break;
+        case ConsoleKey.Spacebar:
+            currentFigure.TryRotate();
             break;
     }
 }
