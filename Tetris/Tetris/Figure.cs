@@ -9,11 +9,11 @@ namespace Tetris
     abstract public class Figure
     {
         const int LENGTH = 4;
-        protected Point[] points = new Point[LENGTH];
+        public Point[] Points = new Point[LENGTH];
         public void Draw()
 
         {
-            foreach (Point p in points)
+            foreach (Point p in Points)
             {
                 p.Draw();
             }
@@ -40,7 +40,7 @@ namespace Tetris
             var clone = Clone();
             Rotate(clone);
             if (VerifyPosition(clone))
-                points = clone;
+                Points = clone;
             Draw();
         }
         internal void TryMove(Direction dir)
@@ -49,7 +49,7 @@ namespace Tetris
             var clone = Clone();
             Move(clone, dir);
             if (VerifyPosition(clone))
-                points = clone;
+                Points = clone;
             Draw();
         }
 
@@ -68,14 +68,14 @@ namespace Tetris
             var NewPoints = new Point[LENGTH];
             for (int i = 0; i < LENGTH; i++)
             {
-                NewPoints[i] = new Point(points[i]);
+                NewPoints[i] = new Point(Points[i]);
             }
             return NewPoints;
         }
 
         public void Hide()
         {
-            foreach(Point p in points)
+            foreach(Point p in Points)
             {
                 p.Hide();
             }
