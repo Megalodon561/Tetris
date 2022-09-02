@@ -8,27 +8,42 @@ while (true)
     if (Console.KeyAvailable)
     {
         var key = Console.ReadKey();
-        HandleKey(currentFigure, key);
+        var result =HandleKey(currentFigure, key);
+        ProcessResult(result, ref currentFigure);
+
 
     }
 }
 
-void HandleKey(Figure currentFigure, ConsoleKeyInfo key)
+bool ProcessResult(Result result, ref Figure currentFigure)
+{
+    if(result==Result.HEAP_STRIKE || result == Result.DOWN_BORDER_STRIKE)
+    {
+        Field.AddFigure(currentFigure);
+        currentFigure = generator.GetNewFigure();
+        return true;
+    }
+    else
+        return false;
+}
+
+static Result HandleKey(Figure f, ConsoleKeyInfo key)
 {
     switch (key.Key)
     {
         case ConsoleKey.LeftArrow:
-            currentFigure.TryMove(Direction.LEFT);
+            return f.TryMove(Direction.LEFT);
             break;
         case ConsoleKey.RightArrow:
-            currentFigure.TryMove(Direction.RIGHT);
+            return f.TryMove(Direction.RIGHT);
             break;
         case ConsoleKey.DownArrow:
-            currentFigure.TryMove(Direction.DOWN);
+            return f.TryMove(Direction.DOWN);
             break;
         case ConsoleKey.Spacebar:
-            currentFigure.TryRotate();
+            return f.TryRotate();
             break;
     }
+    return Result.SUCCESS;
 }
 
