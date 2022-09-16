@@ -25,15 +25,34 @@ namespace Tetris
                 p.Move(dir);
             }
         }
-        /*      public void Move(Direction dir)
+
+        public static void TryDeleteLines()
+        {
+            for(int j=0; j < Field.Height; j++)
+            {
+                int counter=0;
+                for(int i=0; i< Field.Width; i++)
                 {
-                    Hide();
-                    foreach (Point p in points)
-                    {
-                        p.Move(dir);
-                    }
-                    Draw();
-                }*/
+                    if (Field._heap[j][i])
+                        counter++;
+                }
+                if (counter == Field.Width)
+                {
+                    Field.DeleteLine(j);
+                    Field.Redraw();
+                }
+            }
+        }
+
+        /*      public void Move(Direction dir)
+       {
+           Hide();
+           foreach (Point p in points)
+           {
+               p.Move(dir);
+           }
+           Draw();
+       }*/
         internal Result TryRotate()
         {
             Hide();

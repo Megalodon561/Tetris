@@ -1,7 +1,7 @@
 ﻿using Tetris;
 Console.SetWindowSize(Field.Width, Field.Height);
 Console.SetBufferSize(Field.Width, Field.Height);
-FigureGenerator generator = new FigureGenerator(20, 0, '*');
+FigureGenerator generator = new FigureGenerator(Field.Width/2, 0, Drawer.DEFAULT_SYMBOL);
 Figure currentFigure = generator.GetNewFigure();
 while (true)
 {
@@ -20,6 +20,7 @@ bool ProcessResult(Result result, ref Figure currentFigure)
     if(result==Result.HEAP_STRIKE || result == Result.DOWN_BORDER_STRIKE)
     {
         Field.AddFigure(currentFigure);
+        Figure.TryDeleteLines();
         currentFigure = generator.GetNewFigure();
         return true;
     }

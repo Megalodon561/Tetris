@@ -39,7 +39,7 @@ namespace Tetris
         private static int _height = 40;
         private static int _width = 30;
 
-        private static bool[][] _heap;
+        public static bool[][] _heap;
 
         static Field()
         {
@@ -59,6 +59,33 @@ namespace Tetris
             foreach (var p in fig.Points)
             {
                 _heap[p.Y][p.X] = true;
+            }
+        }
+        public static void DeleteLine(int line)
+        {
+            for(int j = line; j>= 0; j--)
+            {
+                for(int i = 0; i < Width; i++)
+                {
+                    if (j == 0)
+                        _heap[j][i] = false;
+                    else
+                        _heap[j][i] = _heap[j - 1][i];
+                }
+            }
+            
+        }
+        public static void Redraw()
+        {
+            for (int j = 0; j< Height; j++)
+            {
+                for (int i = 0; i<Width; i++)
+                {
+                    if (_heap[j][i])
+                        Drawer.DrowPoint(i, j);
+                    else
+                        Drawer.HidePoint(i, j);
+                }
             }
         }
 
